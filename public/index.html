@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Oracle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="astro-container">
+        <h1>Stellar Oracle</h1>
+        <p>Enter your birth details to reveal your cosmic frequencies.</p>
+        <form id="astroForm">
+            <div class="form-group">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+            <button type="submit" id="submitButton">Calculate Frequencies</button>
+        </form>
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <p>Consulting the cosmos...</p>
+        </div>
+        <div id="results" class="hidden">
+            <h2>Your Cosmic Profile</h2>
+            <div id="profile-info">
+                <p><strong>Name:</strong> <span id="resultName"></span></p>
+                <p><strong>Nakshatra:</strong> <span id="resultNakshatra"></span></p>
+                <p><strong>Pada:</strong> <span id="resultPada"></span></p>
+            </div>
+            <h3>Frequency Results (from your logic):</h3>
+            <table id="resultTable">
+                <thead>
+                    <tr>
+                        <th>Result</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody id="resultBody"></tbody>
+            </table>
+        </div>
+        <div id="error" class="hidden">
+            <p>Could not fetch results. Please try again.</p>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('astroForm');
+        const loadingDiv = document.getElementById('loading');
+        const resultsDiv = document.getElementById('results');
+        const errorDiv = document.getElementById('error');
+        const submitButton = document.getElementById('submitButton');
+        const resultBody = document.getElementById('resultBody');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+            const name = document.getElementById('name').value;
+            const dob = document.getElementById('dob').value;
+            loadingDiv.classList.remove('hidden');
+            resultsDiv.classList.add('hidden');
+            errorDiv.classList.add('hidden');
+            submitButton.disabled = true;
+            try {
+                // The URL is now relative, pointing to our api endpoint
+                const backendUrl = '/api/calculate';
+                const response = await fetch(backendUrl, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ name, dob })
+                });
+                if (!response.ok) throw new Error('Backend server error');
+                const data = await response.json();
+                document.getElementById('resultName').textContent = data.name;
+                document.getElementById('resultNakshatra').textContent = data.nakshatra;
+                document.getElementById('resultPada').textContent = data.pada;
+                resultBody.innerHTML = ''; 
+                data.results.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${item.result}</td><td>${item.percentage}%</td>`;
+                    resultBody.appendChild(row);
+                });
+                resultsDiv.classList.remove('hidden');
+            } catch (err) {
+                errorDiv.classList.remove('hidden');
+            } finally {
+                loadingDiv.classList.add('hidden');
+                submitButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

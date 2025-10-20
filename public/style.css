@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+body{font-family:'Cinzel',serif;background-color:#0a041a;background-image:url('https://www.transparenttextures.com/patterns/stardust.png');color:#e0e0e0;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;padding:20px;box-sizing:border-box}
+.astro-container{background:rgba(16,6,41,.8);border:1px solid #7a00ff;border-radius:15px;padding:2.5rem;width:100%;max-width:500px;box-shadow:0 0 30px rgba(122,0,255,.5);text-align:center}
+h1{color:#ffd700;font-size:2.5rem;margin-bottom:.5rem;letter-spacing:2px}
+p{font-size:1.1rem;color:#c0c0c0;margin-bottom:2rem}
+.form-group{margin-bottom:1.5rem;text-align:left}
+.form-group label{display:block;margin-bottom:.5rem;font-size:.9rem;text-transform:uppercase;letter-spacing:1px;color:#ffd700}
+.form-group input{width:100%;padding:12px;background:#100629;border:1px solid #7a00ff;border-radius:5px;color:#e0e0e0;font-family:'Arial',sans-serif;font-size:1rem;box-sizing:border-box}
+input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1)}
+button[type="submit"]{background:linear-gradient(90deg,#ffd700,#ffae00);color:#0a041a;border:none;padding:15px;font-family:'Cinzel',serif;font-size:1.2rem;font-weight:700;border-radius:5px;cursor:pointer;width:100%;transition:all .3s ease}
+button[type="submit"]:hover:not(:disabled){box-shadow:0 0 20px rgba(255,215,0,.6);transform:translateY(-2px)}
+button[type="submit"]:disabled{background:#555;cursor:not-allowed}
+.hidden{display:none}
+#results{margin-top:2rem;text-align:left}
+#results h2,#results h3{color:#ffd700;text-align:center;margin-top:0;margin-bottom:1rem}
+#profile-info{background:#100629;border:1px dashed #7a00ff;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+#profile-info p{font-family:'Arial',sans-serif;color:#e0e0e0;font-size:1.1rem;margin:.5rem 0}
+#profile-info p strong{color:#c0c0c0;min-width:110px;display:inline-block}
+#resultTable{width:100%;border-collapse:collapse;font-family:'Arial',sans-serif}
+#resultTable th,#resultTable td{border:1px solid #7a00ff;padding:12px;text-align:center}
+#resultTable th{background-color:#100629;color:#ffd700}
+#resultTable td{font-size:1.1rem}
+#error{color:#ff4d4d;margin-top:1rem;font-family:'Arial',sans-serif;font-weight:bold}
+.spinner{margin:2rem auto 1rem;border:4px solid rgba(122,0,255,.3);border-left-color:#ffd700;border-radius:50%;width:40px;height:40px;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
